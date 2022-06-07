@@ -1,19 +1,26 @@
-//your code here
+const getSumBtn = document.createElement("button");
+getSumBtn.append("Get Total Price");
+document.body.appendChild(getSumBtn);
 
-function reset() {
-    for (i = 1; i <= 9; i++) {
-        const block = document.getElementById(`${i}`);
-        block.style.backgroundColor = "transparent";
+const getSum = () => {
+  getSumBtn.disabled = true;
+  const prices = document.querySelectorAll(".price");
+  let totalPrice = 0;
+  prices.forEach(price => {
+    const value = parseInt(price.textContent);
+    if(!Number.isNaN(value)){
+      totalPrice += value;
     }
-}
-  
-document.getElementById('reset_button').addEventListener('click', reset);
+  });
+  const totalPriceRow = document.createElement("tr");
+  totalPriceRow.id = "ans";
+  const totalPriceData = document.createElement("td");
+  totalPriceRow.appendChild(totalPriceData);
+  const data = `Total Price (in Rs): ${totalPrice}`;
+  totalPriceData.append(data);
+  const table = document.querySelector("tbody");
+  table.appendChild(totalPriceRow);
+};
 
-document.getElementById('change_button').addEventListener('click', () => {
-    reset();
-    const blockId = document.getElementById("block_id").value;
-    const color = document.getElementById("colour_id").value;
-    // alert(colorId)
-    const block = document.getElementById(`${blockId}`);
-    block.style.backgroundColor = color;
-});
+getSumBtn.addEventListener("click", getSum);
+
